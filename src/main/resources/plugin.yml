@@ -1,0 +1,16 @@
+name: XenNotice
+version: '1.0.0'
+main: net.xenvision.xennotice.XenNotice
+api-version: '1.16'
+authors: [XenVision]
+commands:
+  notice:
+    description: Меню объявлений или добавление объявления
+    usage: /notice [add <текст>]
+permissions:
+  xennotice.use:
+    default: true
+  xennotice.add:
+    default: true
+  xennotice.admin:
+    default: op

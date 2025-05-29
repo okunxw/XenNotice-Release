@@ -1,0 +1,6 @@
+menu:
+  title: "&a&lОбъявления &7| &fСмотреть / Добавить"
+  size: 54
+max-notices: 25
+notice-lifetime: 1d
+cooldown-seconds: 60

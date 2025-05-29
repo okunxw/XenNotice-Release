@@ -1,0 +1,62 @@
+package net.xenvision.xennotice.notice;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class NoticeManager {
+    private final Map<UUID, Notice> notices = new ConcurrentHashMap<>();
+    private NoticeStorage storage;
+
+    public void setStorage(NoticeStorage storage) {
+        this.storage = storage;
+    }
+
+    public void addNotice(Notice notice) {
+        notices.put(notice.getId(), notice);
+        save();
+    }
+
+    public void removeNotice(UUID id) {
+        notices.remove(id);
+        save();
+    }
+
+    public List<Notice> getAllNotices() {
+        return new ArrayList<>(notices.values());
+    }
+
+    public Optional<Notice> getNotice(UUID id) {
+        return Optional.ofNullable(notices.get(id));
+    }
+
+    public void removeExpired() {
+        List<UUID> toRemove = notices.values().stream()
+                .filter(Notice::isExpired)
+                .map(Notice::getId)
+                .toList();
+        toRemove.forEach(notices::remove);
+        save();
+    }
+
+    public int getNoticeCount() {
+        return notices.size();
+    }
+
+    public void clear() {
+        notices.clear();
+        save();
+    }
+
+    public void save() {
+        if (storage != null) storage.saveAll(notices.values());
+    }
+
+    public void load() {
+        if (storage != null) {
+            notices.clear();
+            for (Notice notice : storage.loadAll()) {
+                notices.put(notice.getId(), notice);
+            }
+        }
+    }
+}
