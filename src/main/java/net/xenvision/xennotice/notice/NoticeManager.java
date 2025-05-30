@@ -2,6 +2,8 @@ package net.xenvision.xennotice.notice;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.time.LocalDateTime;
+import java.util.Iterator;
 
 public class NoticeManager {
     private final Map<UUID, Notice> notices = new ConcurrentHashMap<>();
@@ -49,6 +51,21 @@ public class NoticeManager {
 
     public void save() {
         if (storage != null) storage.saveAll(notices.values());
+    }
+
+    public int cleanupExpiredNotices() {
+        int removed = 0;
+        Iterator<Notice> iter = notices.values().iterator();
+        LocalDateTime now = LocalDateTime.now();
+        while (iter.hasNext()) {
+            Notice notice = iter.next();
+            if (notice.getExpiry().isBefore(now)) {
+                iter.remove();
+                removed++;
+            }
+        }
+        if (removed > 0) saveNotices();
+        return removed;
     }
 
     public void load() {

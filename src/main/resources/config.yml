@@ -2,9 +2,27 @@ menu:
   title: "&a&lОбъявления"
   size: 54
   default-icon: "PAPER"
+  allowed-icons: ["PAPER", "BOOK", "MAP"]
+  slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25]
+  display-name: "&e%author%: &f%message%"
   lore:
     - "&7Добавлено: &f%created%"
     - "&7Истекает: &f%expiry%"
     - "&7ID: &f%id%"
+  buttons:
+    next:
+      slot: 53
+      material: ARROW
+      name: "&aСледующая страница"
+    prev:
+      slot: 45
+      material: ARROW
+      name: "&aПредыдущая страница"
+    add:
+      slot: 49
+      material: EMERALD
+      name: "&aДобавить объявление"
 max-notices: 25
 notice-lifetime: "1d"
+auto-cleanup: true
+cleanup-interval: "1h"
