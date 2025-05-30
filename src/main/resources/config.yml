@@ -1,6 +1,10 @@
 menu:
-  title: "&a&lОбъявления &7| &fСмотреть / Добавить"
+  title: "&a&lОбъявления"
   size: 54
+  default-icon: "PAPER"
+  lore:
+    - "&7Добавлено: &f%created%"
+    - "&7Истекает: &f%expiry%"
+    - "&7ID: &f%id%"
 max-notices: 25
-notice-lifetime: 1d
-cooldown-seconds: 60
+notice-lifetime: "1d"
